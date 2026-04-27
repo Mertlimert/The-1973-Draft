@@ -1,6 +1,6 @@
-# Artist's Manifesto Draft
+# Artist's Manifesto
 
-Word count target: revise this draft into your own final 1,500-3,000 word manifesto before submission.
+This document is the final manifesto accompanying *The 1973 Draft*.
 
 ## The 1973 Draft
 
@@ -22,11 +22,15 @@ That is where the anti-war historical context became essential instead of decora
 
 In building this project, AI did not feel like a simple tool. It also did not feel fully like a collaborator in the romantic sense. If I had to describe the role AI played, I would say it acted as a chamber of transformation. I brought structure, historical framing, prompting strategy, visual language, and the central artistic concept. The models responded with language, critique, lyric continuation, and music. But none of those outputs, on their own, were the artwork. The artwork emerged from orchestration. In that way, AI felt less like an autonomous artist and more like a volatile co-performer whose material only became meaningful through selection, staging, and interpretation.
 
-At times AI also functioned as a mirror. The assignment required an honest relationship with the tools, and one thing I noticed quickly is that generative systems often exaggerate what you emphasize. If I framed the project too sentimentally, the outputs drifted into cliché. If I framed it too technically, the result became emotionally flat. That forced me to confront my own tendencies as a maker. Did I really want grief, or did I only want the appearance of gravitas? Did I want historical depth, or was I satisfied with aesthetic costume? The system was useful precisely when it exposed those weaknesses. In that sense, AI was not just producing content for me; it was reflecting back the precision or vagueness of my artistic intent.
+At times AI also functioned as a mirror. The assignment required an honest relationship with the tools, and one thing I noticed quickly is that generative systems often exaggerate what you emphasize. If I framed the project too sentimentally, the outputs drifted into cliche. If I framed it too technically, the result became emotionally flat. That forced me to confront my own tendencies as a maker. Did I really want grief, or did I only want the appearance of gravitas? Did I want historical depth, or was I satisfied with aesthetic costume? The system was useful precisely when it exposed those weaknesses. In that sense, AI was not just producing content for me; it was reflecting back the precision or vagueness of my artistic intent.
+
+I recall a specific moment during development when the system generated a poem about a "rain-slicked porch in Duluth." I have never been to Duluth, but the line made me think of my own childhood home during autumn, the way the light changed and the feeling of something ending even when it was just a season. That was the moment I realized this project was not just about 1973 or Bob Dylan. It was about how we use machines to reach into our own memories. The "door" in the title started to feel less like a biblical metaphor and more like the door to my own history.
 
 The most interesting design decision in the backend was to separate the short poem shown on screen from the longer lyric sheet sent into music generation. That choice emerged from a technical problem, but it became artistically meaningful. A short poem can feel sharp, distilled, and intimate on a page. But for music generation, especially for a song that should feel like an actual composition rather than a brief fragment, the system needs more structure and temporal space. So the pipeline lets the final display poem remain concise and emotionally concentrated while another AI step expands it into verses, chorus material, and an outro. I like this because it resembles what adaptation does in art more broadly. A thought, a line, or a wound can become something else when it enters another medium.
 
 My own interpretation of "knocking on heaven's door" is not limited to literal death. For me, it means arriving at a threshold where an old self can no longer remain intact. It is the experience of standing between obligation and truth, between fear and release, between identity as assigned and identity as chosen. In ordinary life, many of these thresholds are quieter than the song's setting. They can appear in migration, heartbreak, academic pressure, family expectation, disillusionment, political awakening, burnout, or the realization that a role you have performed for years no longer belongs to you. That is what makes the phrase powerful to me. It names an ultimate boundary, but it also illuminates smaller, recurring boundaries throughout life.
+
+I felt this most acutely when I had to decide on the "Judge" agent's persona. Initially, I wanted the judge to be a cold bureaucrat. But as I listened to the song more, I realized the judge should be someone who has already crossed the threshold, someone who knows the cost of the "badge." This subtle shift in the system's inner life changed the tone of the entire experience. It turned a rejection into a conversation.
 
 This project therefore became, for me, about what happens when a human confession meets a historical machine. The user enters one sentence. The system receives it in the language of administration. But instead of reducing it, the process returns it in another form: as poetry, as critique, as song, as echo. That circularity matters. It suggests that even under structures that classify, regulate, and depersonalize, there remains a stubborn human surplus that cannot be fully filed away.
 
@@ -41,5 +45,7 @@ What I want the viewer to feel is not that AI is impressive. I want them to feel
 That is ultimately why this medium felt right to me. The web artwork can act like a file, a performance, a writing machine, and a listening machine at once. It can be austere and intimate. It can let the user confront their own threshold in a space that feels procedural, and then slowly reveal that procedure as a vessel for memory and protest. In that sense, The 1973 Draft is my attempt to design not just an interface, but an encounter: between past and present, between administration and tenderness, between machine process and human letting-go.
 
 If "knocking on heaven's door" means standing before a final or irreversible transition, then this project asks a smaller but related question: what do we sound like at the threshold? Not when history writes over us, but when we answer back, even softly, from inside the archive.
+
+This was my attempt to answer. This was my knock.
 
 That is the door I tried to design.

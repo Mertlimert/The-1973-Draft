@@ -7,3 +7,6 @@ frontend/.env.local
 __pycache__/
 *.pyc
 output/
+Project_Assignment.pdf
+pdf_content.txt
+pdf_content_utf8.txt

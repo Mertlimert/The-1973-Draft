@@ -9,14 +9,15 @@
 - [x] README with architecture overview
 - [x] README with AI techniques used
 - [x] README with dependency and API notes
-- [x] Draft artist manifesto
+- [x] Final artist manifesto
+- [x] README screenshots
 
 ## You Should Still Finalize Before Submission
 
-- [ ] Personalize `docs/ARTIST_MANIFESTO_DRAFT.md` into your own final manifesto voice
-- [ ] Make sure the final manifesto is between 1,500 and 3,000 words
-- [ ] Add more historically grounded archive entries to `backend/app/data/seed_documents.py`
-- [ ] Capture 2-4 real screenshots of the running interface and add them to the repo if you want stronger README polish
+- [ ] Personalize the manifesto further if you want an even stronger first-person voice
+- [x] Make sure the manifesto is between 1,500 and 3,000 words
+- [ ] Add more historically grounded archive entries to `backend/app/data/seed_documents.py` if you want to strengthen historical depth further
+- [x] Capture 2-4 real screenshots of the running interface and add them to the repo
 - [ ] Verify MiniMax key and model settings on the final machine
 - [ ] Run one final end-to-end demo before submission day
 

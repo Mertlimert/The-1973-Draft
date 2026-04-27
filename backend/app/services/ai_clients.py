@@ -146,7 +146,7 @@ class MiniMaxLyricsService:
         }
 
         try:
-            async with httpx.AsyncClient(timeout=90) as client:
+            async with httpx.AsyncClient(timeout=300) as client:
                 response = await client.post(self.api_url, json=payload, headers=headers)
                 response.raise_for_status()
                 data = response.json()
@@ -217,10 +217,12 @@ class MiniMaxMusicService:
         normalized_lyrics = (lyrics or "").strip()
         if not normalized_lyrics:
             return self._fallback_song("MiniMax request skipped: lyrics were empty after generation.")
+        normalized_lyrics = self._prepare_music_lyrics(normalized_lyrics)
+        normalized_prompt = self._prepare_music_prompt(audio_prompt)
 
         payload = {
             "model": self.model,
-            "prompt": audio_prompt,
+            "prompt": normalized_prompt,
             "lyrics": normalized_lyrics,
             "output_format": self.output_format,
             "audio_setting": {
@@ -235,11 +237,31 @@ class MiniMaxMusicService:
         }
 
         try:
-            async with httpx.AsyncClient(timeout=90) as client:
+            async with httpx.AsyncClient(timeout=300) as client:
                 response = await client.post(self.api_url, json=payload, headers=headers)
                 response.raise_for_status()
                 data = response.json()
         except Exception as exc:
+            print(
+                f"[MiniMax music] Request failed. model={self.model} output_format={self.output_format} error={type(exc).__name__}: {exc}",
+                file=sys.stderr,
+            )
+            print(
+                json.dumps(
+                    {
+                        "payload_preview": {
+                            "model": self.model,
+                            "output_format": self.output_format,
+                            "prompt": normalized_prompt[:220],
+                            "lyrics_preview": normalized_lyrics[:420],
+                            "lyrics_length": len(normalized_lyrics),
+                        }
+                    },
+                    indent=2,
+                    ensure_ascii=False,
+                ),
+                file=sys.stderr,
+            )
             return self._fallback_song(f"MiniMax request failed: {exc}")
 
         audio_data = data.get("data") or {}
@@ -284,6 +306,23 @@ class MiniMaxMusicService:
 
     def _looks_like_hex(self, value: Any) -> bool:
         return isinstance(value, str) and len(value) % 2 == 0 and bool(HEX_PATTERN.fullmatch(value))
+
+    def _prepare_music_lyrics(self, lyrics: str) -> str:
+        cleaned_lines = []
+        for line in lyrics.splitlines():
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith("[") and stripped.endswith("]"):
+                continue
+            cleaned_lines.append(stripped)
+
+        compact = "\n".join(cleaned_lines)
+        return compact[:1600]
+
+    def _prepare_music_prompt(self, prompt: str) -> str:
+        cleaned = " ".join((prompt or "").split())
+        return cleaned[:280]
 
     def _demo_wav_base64(self) -> str:
         sample_rate = 22050

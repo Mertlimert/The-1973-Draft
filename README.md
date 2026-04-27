@@ -6,7 +6,7 @@ Inspired by Bob Dylan's 1973 atmosphere around "Knockin' on Heaven's Door," this
 
 ## Brief Artistic Statement
 
-The 1973 Draft imagines bureaucracy as a threshold machine. A single form entry becomes a record of grief, protest, memory, and departure. The project does not treat AI as a novelty layer on top of a static artwork; instead, AI is used as the engine of transformation, turning a personal sentence into an evolving artifact shaped by history, poetic revision, and musical re-interpretation. The intended result is a document that feels simultaneously intimate and institutional, personal and historical, human and machine-mediated.
+The 1973 Draft imagines bureaucracy as a threshold machine. A single form entry becomes a record of grief, protest, memory, and departure. The project does not treat AI as a novelty layer on top of a static artwork; instead, AI is used as the engine of transformation, turning a personal sentence into an evolving artifact shaped by history, poetic revision, and musical reinterpretation. The intended result is a document that feels simultaneously intimate and institutional, personal and historical, human and machine-mediated.
 
 ## Assignment Fit
 
@@ -86,6 +86,24 @@ The backend orchestrates the full creative pipeline and returns staged progress 
 - MiniMax lyrics generation endpoint
 - MiniMax music generation endpoint
 
+## AI Tools, Models, and APIs Used
+
+### AI Tools
+
+- MiniMax
+- Retrieval-augmented prompting over a local archive corpus
+
+### Models
+
+- `MiniMax-M2.7` for text generation and critique
+- `music-2.6` for music generation
+
+### API Surfaces
+
+- `POST /v1/chat/completions`
+- `POST /v1/lyrics_generation`
+- `POST /v1/music_generation`
+
 ## Project Structure
 
 ```text
@@ -103,7 +121,7 @@ The backend orchestrates the full creative pipeline and returns staged progress 
 |   |   `-- schemas.py
 |   `-- requirements.txt
 |-- docs
-|   |-- ARTIST_MANIFESTO_DRAFT.md
+|   |-- ARTIST_MANIFESTO.md
 |   `-- SUBMISSION_CHECKLIST.md
 `-- frontend
     |-- app
@@ -180,17 +198,18 @@ This project requires a valid MiniMax API key for full text, lyrics, and music g
 
 ## Example Output
 
+![Landing Page](./screenshots/landing_page.png)
+*Archival Form 73-D: Selective Service Statement*
+
+![Processing State](./screenshots/processing_state.png)
+*System Sequence: Awaiting data retrieval and drafting*
+
+![Final Dossier](./screenshots/final_dossier.png)
+*Final Approved Dossier: Generated poem, lyrics, and audio response*
+
 Example user input:
 
 > I am leaving behind my mother's voice in the kitchen and the version of me that still believed duty was noble.
-
-Example generated output types:
-
-- a short four-line farewell poem for display
-- a judged emotional revision
-- a longer structured lyric sheet for song generation
-- an AI-generated audio response
-- a QR-linked audio dossier when the provider returns a shareable URL
 
 ## RAG Dataset
 
@@ -206,6 +225,21 @@ Current retrieval logic is implemented in:
 
 Right now this repo uses a lightweight local similarity layer instead of a full ChromaDB runtime, chosen to keep Windows setup simple and reliable.
 
+### Corpus Provenance Note
+
+The archive corpus is intentionally hybrid:
+
+- Some entries are original synthetic reconstructions written for the artwork in a 1973-informed voice
+- Some entries are interpretive commentary or paraphrased cultural notes about Dylan, the draft era, and anti-war feeling
+- Some entries reference historical context such as the Paris Peace Accords or *Pat Garrett & Billy the Kid* (1973)
+- Any direct lyrical quotation should be kept short and clearly identifiable as a Dylan reference rather than presented as original archival writing
+
+This structure is deliberate: the dataset is not meant to function as a documentary archive, but as a historically informed creative memory field for retrieval-augmented generation.
+
+For a short transparency note on historical references and corpus construction, see:
+
+- [docs/SOURCES_AND_REFERENCES.md](docs/SOURCES_AND_REFERENCES.md)
+
 ## Deliverables Included In Repo
 
 - Working artwork implementation
@@ -213,8 +247,9 @@ Right now this repo uses a lightweight local similarity layer instead of a full 
 - Setup instructions
 - Architecture overview
 - AI techniques list
-- Draft artist manifesto
+- Final artist manifesto
 - Submission checklist
+- Sources and references note
 
 ## Notes
 
