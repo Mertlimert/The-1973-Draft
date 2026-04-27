@@ -2,32 +2,89 @@
 
 An interactive generative web artwork built for CSE 358: Introduction to Artificial Intelligence.
 
-Inspired by Bob Dylan's 1973 moodscape around "Knockin' on Heaven's Door", the project stages a farewell ritual: the user writes a single sentence about what they are leaving behind, and the system turns it into an archival anti-war poem, a judged revision, a music prompt, a generated song, and a shareable QR code.
+Inspired by Bob Dylan's 1973 atmosphere around "Knockin' on Heaven's Door," this project stages a farewell ritual inside a fictional draft-office archive. The user writes a single sentence about what they are leaving behind, and the system transforms that confession into a contextualized anti-war poem, a judged revision, a full song lyric sheet, a generated musical response, and a QR-accessible audio dossier.
 
-## Concept
+## Brief Artistic Statement
 
-The experience is framed as a 1973 draft-office document.
+The 1973 Draft imagines bureaucracy as a threshold machine. A single form entry becomes a record of grief, protest, memory, and departure. The project does not treat AI as a novelty layer on top of a static artwork; instead, AI is used as the engine of transformation, turning a personal sentence into an evolving artifact shaped by history, poetic revision, and musical re-interpretation. The intended result is a document that feels simultaneously intimate and institutional, personal and historical, human and machine-mediated.
 
-The user answers:
+## Assignment Fit
 
-> What are you leaving behind before going to war / into the unknown?
+This project is designed around the three mandatory constraints in the course brief:
 
-That response moves through a small agent pipeline:
+1. `At least 2 AI techniques`
+   - Retrieval-augmented text generation
+   - LLM-based poetic generation and critique
+   - AI lyrics generation
+   - AI music generation
+2. `Original code`
+   - Custom frontend, backend, streaming pipeline, prompt orchestration, retrieval logic, QR generation, and API integration
+3. `Historical context`
+   - The project embeds 1973 draft-era language, anti-war sensibility, Dylan-adjacent references, and archival framing into both the dataset and interface
 
-1. Archive retrieval from a local 1973-inspired corpus
-2. First-draft poem generation
-3. Emotional review and revision
-4. Music direction prompt generation
-5. Full song lyric expansion for music generation
-6. MiniMax music generation
-7. QR generation for the returned audio URL
+## AI Techniques Used
 
-## Stack
+### 1. Retrieval-Augmented Generation
 
-- Frontend: Next.js, React, Tailwind CSS, Framer Motion
-- Backend: FastAPI, Python
-- Text + Music APIs: MiniMax
-- Retrieval: local in-memory similarity search over a manual archive dataset
+The system retrieves the most relevant archive fragments from a manually curated 1973-inspired corpus before writing the poem.
+
+### 2. LLM-Based Poetry Generation and Critique
+
+MiniMax text models generate:
+- the first-draft poem
+- the judge's emotional critique
+- the revised short poem
+- the music direction prompt
+
+### 3. AI Lyrics Expansion
+
+To avoid short, fragmentary music generations, the project separately produces a fuller structured song lyric sheet from the final poem.
+
+### 4. AI Music Generation
+
+MiniMax music generation creates an audio response from the generated lyrics and music-direction prompt.
+
+## How The Techniques Interact
+
+```mermaid
+flowchart TD
+    A["User Input"] --> B["Archive Retrieval"]
+    B --> C["Poet Agent: Draft Poem"]
+    C --> D["Judge Agent: Emotional Critique"]
+    D --> E["Poet Agent: Final Short Poem"]
+    E --> F["Lyrics Expansion"]
+    E --> G["Music Direction Prompt"]
+    F --> H["MiniMax Music Generation"]
+    G --> H
+    H --> I["Audio Player"]
+    H --> J["QR Generation"]
+```
+
+## Technical Architecture Overview
+
+### Frontend
+
+- Next.js App Router
+- React
+- Tailwind CSS
+- Framer Motion
+
+The frontend sends a single request to the backend and listens to a streaming response. It presents the work as a 1973-style bureaucratic document, with a submission form, a staged loading sequence, and a final stamped dossier view.
+
+### Backend
+
+- FastAPI
+- Python
+- SSE-style streaming response
+- Local retrieval layer over a manual archive dataset
+
+The backend orchestrates the full creative pipeline and returns staged progress updates plus the final artifact bundle.
+
+### External APIs
+
+- MiniMax text chat endpoint
+- MiniMax lyrics generation endpoint
+- MiniMax music generation endpoint
 
 ## Project Structure
 
@@ -45,38 +102,15 @@ That response moves through a small agent pipeline:
 |   |   |-- main.py
 |   |   `-- schemas.py
 |   `-- requirements.txt
+|-- docs
+|   |-- ARTIST_MANIFESTO_DRAFT.md
+|   `-- SUBMISSION_CHECKLIST.md
 `-- frontend
     |-- app
     |-- components
     |-- lib
     `-- package.json
 ```
-
-## How It Works
-
-### 1. Retrieval
-
-The backend looks up the user's sentence against a local archive dataset and retrieves the most relevant records.
-
-### 2. Poet Agent
-
-A first-pass anti-war folk poem is generated in English using the retrieved context.
-
-### 3. Judge Agent
-
-The poem is reviewed for the emotional balance of grief, rebellion, and farewell.
-
-### 4. Revision
-
-The poem is revised into its final short form for display.
-
-### 5. Song Expansion
-
-The short poem is expanded into fuller song lyrics for MiniMax music generation, so the final track has a better chance of sounding like an actual song rather than a short fragment.
-
-### 6. Music + QR
-
-MiniMax returns either an audio URL or audio payload. The app renders a player and generates a QR code when a shareable URL is available.
 
 ## Local Setup
 
@@ -120,31 +154,71 @@ npm run dev
 
 - `NEXT_PUBLIC_API_BASE_URL`
 
+## Dependencies and API Requirements
+
+### Python
+
+- `fastapi`
+- `uvicorn`
+- `httpx`
+- `pydantic`
+- `python-dotenv`
+- `qrcode[pil]`
+
+### JavaScript
+
+- `next`
+- `react`
+- `react-dom`
+- `tailwindcss`
+- `framer-motion`
+- `lucide-react`
+
+### API Access
+
+This project requires a valid MiniMax API key for full text, lyrics, and music generation. If no valid key is provided, the backend falls back gracefully for demo continuity.
+
+## Example Output
+
+Example user input:
+
+> I am leaving behind my mother's voice in the kitchen and the version of me that still believed duty was noble.
+
+Example generated output types:
+
+- a short four-line farewell poem for display
+- a judged emotional revision
+- a longer structured lyric sheet for song generation
+- an AI-generated audio response
+- a QR-linked audio dossier when the provider returns a shareable URL
+
 ## RAG Dataset
 
 The archive data is manually maintained in:
 
 - [backend/app/data/seed_documents.py](backend/app/data/seed_documents.py)
 
-If you want to add more letters, Dylan-adjacent fragments, research notes, anti-war diary excerpts, or 1973 bureaucratic language, add more entries to that list.
+If you want to add more letters, Dylan-adjacent fragments, research notes, anti-war diary excerpts, Vietnam-era language, film references, or bureaucratic archival text, add more entries to that list.
 
-Current retrieval is implemented in:
+Current retrieval logic is implemented in:
 
 - [backend/app/services/rag.py](backend/app/services/rag.py)
 
-Right now this is a lightweight local similarity layer rather than a full ChromaDB runtime, chosen to keep Windows setup simple and reliable in this repo version.
+Right now this repo uses a lightweight local similarity layer instead of a full ChromaDB runtime, chosen to keep Windows setup simple and reliable.
+
+## Deliverables Included In Repo
+
+- Working artwork implementation
+- Full source code
+- Setup instructions
+- Architecture overview
+- AI techniques list
+- Draft artist manifesto
+- Submission checklist
 
 ## Notes
 
-- The UI is styled as a vintage military bureaucracy document from 1973.
-- The loading state, form surface, and final result page are all designed as archival document artifacts.
-- If MiniMax does not return a usable music output, the app falls back gracefully instead of crashing.
+- The UI is styled as a vintage 1973 military bureaucracy document.
+- The loading state, form surface, and result page are all treated as archival paper artifacts.
+- If MiniMax does not return a usable music output, the app falls back instead of crashing.
 - `.env` files are intentionally excluded from version control.
-
-## Demo Flow
-
-1. Enter one sentence
-2. Wait while the archive / poet / judge / composer stages run
-3. Read the final poem
-4. Play the generated track
-5. Scan the QR code when an external audio URL is returned
