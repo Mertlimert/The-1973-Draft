@@ -33,6 +33,12 @@ The project does **not** present its archive corpus as a literal historical docu
 - The archive corpus is partly synthetic by design and should be understood as a creative reconstruction layer, not a scholarly source edition.
 - Historical references are included to ground the project's atmosphere, symbolism, and thematic structure in the era surrounding the song.
 
+## External Libraries and Assets
+
+- Typography is served through web fonts used in the frontend presentation layer.
+- The interface relies on standard open-source frontend and backend libraries listed in the repository README.
+- No third-party historical dataset is bundled as an authoritative archive; the retrieval corpus is manually assembled for this artwork's creative use.
+
 ## Where This Appears In Code
 
 - Archive corpus: [backend/app/data/seed_documents.py](../backend/app/data/seed_documents.py)

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Pause, Play, QrCode, SkipBack, SkipForward } from "lucide-react";
+import { Download, ExternalLink, Pause, Play, QrCode, SkipBack, SkipForward } from "lucide-react";
 
 import { GenerationResult } from "@/lib/types";
 
@@ -18,6 +18,10 @@ export function ResultSheet({ result }: Props) {
     : result.audio_base64
       ? `data:${result.audio_mime};base64,${result.audio_base64}`
       : undefined;
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+  const downloadHref = result.audio_url
+    ? `${apiBaseUrl}/api/audio/download?url=${encodeURIComponent(result.audio_url)}`
+    : audioSrc;
 
   const duration = useMemo(() => {
     if (audioRef.current?.duration && Number.isFinite(audioRef.current.duration)) {
@@ -124,13 +128,35 @@ export function ResultSheet({ result }: Props) {
                 <SkipForward className="h-5 w-5 text-[#27231d]" />
               </button>
             </div>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              {downloadHref ? (
+                <a
+                  href={downloadHref}
+                  className="inline-flex items-center gap-2 border border-[#27231d] px-4 py-2 text-xs uppercase tracking-[0.16em] text-[#27231d] hover:bg-[#27231d] hover:text-[#f5f0e6]"
+                >
+                  <Download className="h-4 w-4" />
+                  Download Audio
+                </a>
+              ) : null}
+              {result.audio_url ? (
+                <a
+                  href={result.audio_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 border border-[#27231d]/50 px-4 py-2 text-xs uppercase tracking-[0.16em] text-[#27231d] hover:bg-[#27231d] hover:text-[#f5f0e6]"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Open Source URL
+                </a>
+              ) : null}
+            </div>
             <audio ref={audioRef} src={audioSrc} preload="metadata" className="hidden" />
           </div>
 
           <div className="flex gap-5">
-            <div className="flex h-32 w-32 items-center justify-center bg-[#27231d] p-3">
+            <div className="flex h-40 w-40 items-center justify-center bg-[#27231d] p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)]">
               {result.qr_code ? (
-                <img src={result.qr_code} alt="Generated QR code" className="h-full w-full bg-white object-contain p-2" />
+                <img src={result.qr_code} alt="Generated QR code" className="h-full w-full bg-white object-contain p-3" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center border-2 border-dashed border-[#f5f0e6]">
                   <QrCode className="h-8 w-8 text-[#f5f0e6]" />

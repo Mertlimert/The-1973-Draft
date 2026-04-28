@@ -14,7 +14,8 @@ export async function startGeneration(userInput: string, handlers: StreamHandler
   });
 
   if (!response.ok || !response.body) {
-    throw new Error("The archive room stayed silent.");
+    const errorText = await response.text().catch(() => "");
+    throw new Error(errorText || `Request failed with status ${response.status}.`);
   }
 
   const reader = response.body.getReader();

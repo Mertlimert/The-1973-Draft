@@ -49,3 +49,25 @@ If "knocking on heaven's door" means standing before a final or irreversible tra
 This was my attempt to answer. This was my knock.
 
 That is the door I tried to design.
+
+## AI Transparency Note
+
+For technical transparency, this work uses a local archive retrieval layer over a manually maintained seed corpus, MiniMax text generation through `/v1/chat/completions`, MiniMax lyrics expansion through `/v1/lyrics_generation`, and MiniMax music generation through `/v1/music_generation`. In the current configuration, the text model is `MiniMax-M2.7` and the music model is `music-2.6`. These systems generate language and sound, but the artistic framing, prompt structure, interface logic, historical positioning, and interpretive meaning are our own curatorial decisions.
+
+## Team Contribution Note
+
+This project was developed by `Mert Kedik (20220808067)` and `Yiğitalp (20220808060)`.
+
+### Mert Kedik
+
+- frontend implementation and UI/UX direction
+- archival document visual language and interaction design
+- FastAPI integration flow and end-to-end application wiring
+- README structure, repository organization, QR/audio experience, and presentation polish
+
+### Yiğitalp
+
+- model selection strategy and AI pipeline design
+- prompt architecture for poet, judge, lyrics, and music stages
+- NLP/retrieval logic direction and archive-context behavior
+- MiniMax-side generation structure, output handling, and model-oriented iteration

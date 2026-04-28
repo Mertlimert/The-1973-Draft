@@ -122,7 +122,9 @@ The backend orchestrates the full creative pipeline and returns staged progress 
 |   `-- requirements.txt
 |-- docs
 |   |-- ARTIST_MANIFESTO.md
-|   `-- SUBMISSION_CHECKLIST.md
+|   |-- SOURCES_AND_REFERENCES.md
+|   |-- SUBMISSION_CHECKLIST.md
+|   `-- the-1973-draft-audio.mp3
 `-- frontend
     |-- app
     |-- components
@@ -207,6 +209,10 @@ This project requires a valid MiniMax API key for full text, lyrics, and music g
 ![Final Dossier](./screenshots/final_dossier.png)
 *Final Approved Dossier: Generated poem, lyrics, and audio response*
 
+Sample generated audio kept in the repository for demo backup:
+
+- [docs/the-1973-draft-audio.mp3](docs/the-1973-draft-audio.mp3)
+
 Example user input:
 
 > I am leaving behind my mother's voice in the kitchen and the version of me that still believed duty was noble.
@@ -250,6 +256,12 @@ For a short transparency note on historical references and corpus construction, 
 - Final artist manifesto
 - Submission checklist
 - Sources and references note
+- Sample generated audio artifact for exhibition/demo backup
+
+## Team
+
+- `Mert Kedik` - `20220808067`
+- `Yiğitalp` - `20220808060`
 
 ## Notes
 

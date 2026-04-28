@@ -20,6 +20,7 @@
 - [x] Capture 2-4 real screenshots of the running interface and add them to the repo
 - [ ] Verify MiniMax key and model settings on the final machine
 - [ ] Run one final end-to-end demo before submission day
+- [x] Keep one successful generated audio example in the repo for demo backup
 
 ## Recommended Historical Enrichment
 
@@ -33,11 +34,10 @@ To improve the rubric score for historical depth, consider adding:
 
 ## If This Is A Team Submission
 
-Add a short contribution section to the final manifesto:
-
-- Technical responsibilities
-- Creative/artistic responsibilities
-- Research and writing responsibilities
+- [x] Contribution section included in the final manifesto
+- [x] Technical responsibilities noted
+- [x] Creative/artistic responsibilities noted
+- [x] Research / AI pipeline responsibilities noted
 
 ## Suggested Final Deliverables Set
 
