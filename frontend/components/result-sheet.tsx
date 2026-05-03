@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Download, ExternalLink, Pause, Play, QrCode, SkipBack, SkipForward } from "lucide-react";
 
 import { GenerationResult } from "@/lib/types";
@@ -76,6 +76,16 @@ export function ResultSheet({ result }: Props) {
     setCurrentTime(audioRef.current.currentTime);
   }
 
+  function handleProgressClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (!audioRef.current || !duration) return;
+    const bounds = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - bounds.left;
+    const percentage = Math.max(0, Math.min(1, x / bounds.width));
+    const newTime = percentage * duration;
+    audioRef.current.currentTime = newTime;
+    setCurrentTime(newTime);
+  }
+
   const progress = duration > 0 ? Math.min((currentTime / duration) * 100, 100) : 0;
 
   return (
@@ -102,6 +112,15 @@ export function ResultSheet({ result }: Props) {
             <p className="font-bold tracking-[0.18em]">Judge&apos;s note</p>
             <p className="mt-3 text-sm normal-case leading-7 text-[#3d382f]">{result.judge_feedback}</p>
           </div>
+
+          {result.song_lyrics && (
+            <div className="mt-10 max-w-xl border-t-2 border-dashed border-[#27231d]/20 pt-8">
+              <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#60594e]">Full Audio Transcript</h3>
+              <div className="max-h-[280px] overflow-y-auto pr-4">
+                <pre className="whitespace-pre-wrap font-document text-[15px] leading-[1.9] text-[#4a443a]">{result.song_lyrics}</pre>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="space-y-8">
@@ -112,7 +131,10 @@ export function ResultSheet({ result }: Props) {
                 {formatTime(currentTime)} / {formatTime(duration)}
               </span>
             </div>
-            <div className="mt-6 h-[6px] bg-[#27231d]/15">
+            <div 
+              className="mt-6 h-[6px] bg-[#27231d]/15 cursor-pointer"
+              onClick={handleProgressClick}
+            >
               <div className="relative h-full bg-[#27231d]" style={{ width: `${progress}%` }}>
                 <span className="absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 translate-x-1/2 bg-[#27231d]" />
               </div>
